@@ -14,7 +14,7 @@ def FakeImagesDangerous():
     menu = ['','평범한 사진', '조작된 사진']
     correct = 0
 
-    success_script = '''눈썰미가 좋으시군요.
+    success_script = '''눈썰미가 좋으십니다..
                       하지만 쉽지는 않으셨으리라 생각합니다.
                       이러한 기술들은 나날이 눈에 띄게 발전해가고 있습니다.
                       이러한 기술들이 보이스 피싱 등의 범죄에 이용된다면, 우리는 어떻게 대응해야할까요?'''
@@ -62,7 +62,7 @@ def FakeImagesDangerous():
                     st.success('진짜와 가짜 이미지를 분류해내셨습니다.')
                     st.write(success_script)
                 else:
-                    st.warning('진짜와 가짜 이미지를 분류에 실패하셨습니다.')
+                    st.warning('진짜와 가짜 이미지 분류에 실패하셨습니다.')
                     st.write(false_script)
 
             
