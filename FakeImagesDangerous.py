@@ -11,7 +11,7 @@ def FakeImagesDangerous():
     # number = list(range(1,10+1))
     # random_image_id = random.sample(number,10)
     # st.write(random_image_id)
-    menu = ['','Truth', 'False']
+    menu = ['','평범한 사진', '조작된 사진']
     correct = 0
 
     success_script = '''눈썰미가 좋으시군요.
@@ -52,10 +52,10 @@ def FakeImagesDangerous():
             solution = 0
             choice = st.selectbox('답을 선택하세요.',menu)
             if len(choice) >= 1:
-                if choice == 'Truth':
+                if choice == '평범한 사진':
                     solution = 0
                     
-                elif choice == 'False':
+                elif choice == '조작된 사진':
                     solution = 1
 
                 if solution == results[0]['solution']:
