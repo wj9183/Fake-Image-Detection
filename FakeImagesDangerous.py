@@ -43,27 +43,38 @@ def FakeImagesDangerous():
             # st.write(results)
             # st.dataframe(results)
             # st.write(results)
-            st.title('도발하는 스크립트')
+            st.title('')
             st.write('이 사진은 평범한 사진일까요, 조작된 사진일까요?')
 
+            # st.write(results)
+            image_id_list = list(range(0, 9+1))
+            # st.write(image_id_list)
+            number = random.sample(image_id_list,1)[0]
+            st.image(results[number]['image_url'])
+            solution = 'default'
+            default_select = menu.index('')
+            if st.button('평범한 사진', key = 'truth'):
+                solution = 0
 
-
-            st.image(results[0]['image_url'])
-            solution = 0
-            choice = st.selectbox('답을 선택하세요.',menu)
-            if len(choice) >= 1:
-                if choice == '평범한 사진':
-                    solution = 0
                     
-                elif choice == '조작된 사진':
-                    solution = 1
+            if st.button('조작된 사진', key = 'false'):
+                solution = 1
 
-                if solution == results[0]['solution']:
-                    st.success('진짜와 가짜 이미지를 분류해내셨습니다.')
-                    st.write(success_script)
-                else:
-                    st.warning('진짜와 가짜 이미지 분류에 실패하셨습니다.')
-                    st.write(false_script)
+
+
+
+            if solution == results[number]['solution']:
+
+                st.success('진짜와 가짜 이미지를 분류해내셨습니다.')
+                solution = 'default'
+                
+            elif solution != results[number]['solution']:
+
+                st.warning('진짜와 가짜 이미지 분류에 실패하셨습니다.')
+                solution = 'default'
+            else:
+                pass
+
 
             
 
