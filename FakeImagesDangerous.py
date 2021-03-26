@@ -6,11 +6,7 @@ import pandas as pd
 import numpy as np
 
 def FakeImagesDangerous():
-    # st.write('Deep Fake의 위험성에 대해 알려주는 페이지입니다.')
 
-    # number = list(range(1,10+1))
-    # random_image_id = random.sample(number,10)
-    # st.write(random_image_id)
     menu = ['','평범한 사진', '조작된 사진']
     correct = 0
 
@@ -31,96 +27,42 @@ def FakeImagesDangerous():
             )
         if connection.is_connected() : #연결됐을 때
             cursor = connection.cursor(dictionary= True)
-            # query = """ select image_url, solution
-            #             from FakeImageDetection_test
-            #             where image_id = {};""".format()
+
             query = """ select *
                         from FakeImageDetection_test;"""
 
             cursor.execute(query)
             results = cursor.fetchall()
 
-            # st.write(results)
-            # st.dataframe(results)
-            # st.write(results)
             st.title('')
             st.write('이 사진은 평범한 사진일까요, 조작된 사진일까요?')
 
-            # st.write(results)
-            image_id_list = list(range(0, 9+1))
-            # st.write(image_id_list)
-            number = random.sample(image_id_list,1)[0]
+            # image_id_list = list(range(0, 9+1))
+
+            # number = random.sample(image_id_list,1)[0]
+            number = 0
             st.image(results[number]['image_url'])
-            solution = 'default'
+            solution = ''
             default_select = menu.index('')
             if st.button('평범한 사진', key = 'truth'):
                 solution = 0
-
-                    
             if st.button('조작된 사진', key = 'false'):
                 solution = 1
+            if solution is not '':
+                st.write('버튼을 누른 후 solution 값은 현재 : {}'.format(solution))
+                if solution == results[number]['solution']:
+                    st.success('진짜와 가짜 이미지를 분류해내셨습니다.')
+                elif solution != results[number]['solution']:
 
+                    st.warning('진짜와 가짜 이미지 분류에 실패하셨습니다.')
+                else:
+                    pass
 
-
-
-            if solution == results[number]['solution']:
-
-                st.success('진짜와 가짜 이미지를 분류해내셨습니다.')
-                solution = 'default'
-                
-            elif solution != results[number]['solution']:
-
-                st.warning('진짜와 가짜 이미지 분류에 실패하셨습니다.')
-                solution = 'default'
-            else:
-                pass
-
-
-            
-
-        
-
-
-            # for i in range(1,10+1):
-
-
-            # for number in random.sample(results, 10):
-            #     st.write(row['image_id'])
-            #     st.image(row['image_url'])
-
-            # for number in range(10):
-            #     st.write(number)
-            #     st.image(df.loc[df['image_id'] == number, 'image_url'])
-                # st.image(df.loc[df['image_id'] == number, 'image_url'])
-                # print(df.loc[df['image_id'] == number, 'image_url'])
-
-                # solution = st.radio('답을 고르세요', menu)
-                # if solution == '진짜':
-                #     solution == 0
-                # elif solution == '가짜':
-                #     solution == 1
-                # else:
-                #     print('error')
-                #     pass
-                # if solution == df.loc[df['image_id'] == number, 'solution']:
-                #     correct += 1
-                # else:
-                #     pass
-
-            # end_button = st.button('테스트 결과 보기')
-            # if end_button:
-            #     print('진짜와 가짜 이미지 중 {}개를 분류해내셨습니다.'.format(correct))
-                    
-
-                # image_data.append([row['image_id'])
-                # st.image_data
 
     except Error as e :                     
         print('디비 관련 에러 발생', e)
     
     finally :
-        # 5. 모든 데이터베이스 실행 명령을 전부 끝냈으면, (트라이나 익셉트가 끝나고.)
-        #    커서와 커넥션을 모두 닫아준다.
         cursor.close()
         connection.close()
         print("MySQL 커넥션 종료")
@@ -158,15 +100,3 @@ def FakeImagesDangerous():
 
     #             for data in results :
     #                 print(data[1] , data[4])
-
-        
-    #     except Error as e :
-    #         print('디비 관련 에러 발생', e)
-        
-    #     finally :
-    #         # 5. 모든 데이터베이스 실행 명령을 전부 끝냈으면, (트라이나 익셉트가 끝나고.)
-    #         #    커서와 커넥션을 모두 닫아준다.
-    #         cursor.close()
-    #         connection.close()
-    #         print("MySQL 커넥션 종료")
-    
